@@ -274,7 +274,7 @@ type LabelFormatter func(index int, value float64, percent float64) string
 // NewPieLabelFormatter returns a pie label formatter
 func NewPieLabelFormatter(seriesNames []string, layout string) LabelFormatter {
 	if len(layout) == 0 {
-		layout = "{b}: {d}"
+		layout = "{b}: {d}: ({c})"
 	}
 	return NewLabelFormatter(seriesNames, layout)
 }
@@ -308,8 +308,8 @@ func NewLabelFormatter(seriesNames []string, layout string) LabelFormatter {
 		if len(seriesNames) > index {
 			name = seriesNames[index]
 		}
-		text := strings.ReplaceAll(layout, "{c}", valueText)
-		text = strings.ReplaceAll(text, "{d}", percentText)
+		text := strings.ReplaceAll(layout, "{c}", percentText)
+		text = strings.ReplaceAll(text, "{d}", valueText)
 		text = strings.ReplaceAll(text, "{b}", name)
 		return text
 	}
